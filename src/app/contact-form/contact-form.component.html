@@ -1,0 +1,71 @@
+
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+
+    <!-- Here ngModelGroup is for creating complex data group, it may be required for api calls -->
+    <div ngModelGroup="contact">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <!-- Form Control class example for validations -->
+            <input  required
+                    minlength="3"
+                    pattern="\b([a-zA-ZÀ-ÿ][-,a-z. ']+[ ]*)+"
+                    ngModel name="firstName" 
+                    id="firstName" 
+                    type="text" 
+                    class="form-control" 
+                    #templeteVar="ngModel" (change)="log(templeteVar)">
+    
+            <div class="alert alert-danger" *ngIf="!templeteVar.control.valid && templeteVar.touched">
+                <div *ngIf="templeteVar.errors.required">First name is required</div>
+                <div *ngIf="templeteVar.errors.minlength">First name should be minimum {{templeteVar.errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="templeteVar.errors.pattern">Does not match required pattern</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="comment">Comment</label><br>
+        <textarea ngModel name="comment" id="comment" cols="30" rows="10"></textarea>
+    </div>
+
+    <!-- Some dropdown menu -->
+    <!-- div.form-group>label+select.form-control -->
+    <div class="form-group">
+        <label for="contactMethod">Contact Method</label>
+        <select ngModel name="contactMethod" id="contactMethod" class="form-control">
+            <option value=""></option>
+            <!-- Here we used ngValue to pass an object for the API -->
+            <option value="" *ngFor="let method of contactMethods" [ngValue]='method'>{{method.name}}</option>
+        </select>
+    </div>
+
+    <!-- Radio Buttons -->
+    <div class="radio">
+        <label for="email">
+            <input type="radio" ngModel name="contactMethodRadioButton" value="1">
+            Email
+        </label>
+    </div>
+    <div class="radio">
+        <label for="Phone">
+            <input type="radio" ngModel name="contactMethodRadioButton" value="2">
+            Phone
+        </label>
+    </div>
+
+    <!-- Let's add some checkbox -->
+    <div class="checkbox">
+        <label for="">
+            <input type="checkbox" ngModel name="isSubscribed"> Subscribe to mailing list
+        </label>
+        <p>
+            {{f.value | json}}
+        </p>
+    </div>
+
+
+    <!-- disabled binding is just for checking if form inputs are valid before we submit -->
+    <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+
+</form>

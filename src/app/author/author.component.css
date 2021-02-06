@@ -1,0 +1,6 @@
+li {
+    font: outline;
+    margin: auto;
+    padding: 4px;
+    text-underline-position: below;
+}

@@ -1,0 +1,47 @@
+<h2>{{getTitle()}}</h2>
+
+<button class="btn btn-primary" [class.active]="isActive">Save Button Using BootStrap Library Which is about styling</button>
+<br>
+<!-- style binding [], event binding($event) -->
+<div (click)="divElementClick()">
+    <button class="btn btn-primary" (click)="onSave($event)" [style.background]="isActive? 'blue': 'green'">Second button</button>
+</div>
+
+
+<!-- Input Field -->
+<input (keyup.enter)="onKeyUp($event)"/>
+<input #email (keyup.enter)="onKeyUp2(email.value)"/>
+
+<br>
+<!-- Two way binding (Component < - > View) -->
+<label> Password
+    <input [(ngModel)]="password" type = "password" (keyup.enter)="onKeyUpPassword()"/>
+</label>
+
+<ul>
+    <label for="">Course Name<input #courseName (keyup.enter)="addCourse(courseName.value)"></label><br>
+    <button (click)="addCourse(courseName.value)">ADD COURSE</button>
+    <li *ngFor="let course of courses; index as i">
+       Index {{i}}: {{course.name}} Id: {{course.id}} <button (click)="removeCourse(course)">Remove</button>
+    </li>
+</ul>
+
+<!-- Safe traversal, if something is null or undefined we won't want to show it on UI -->
+<span>{{courses[0]?.name}}</span><br>
+<span>{{courses[1]?.books?.list}}</span><br> 
+<span>{{courses[2]?.books?.list}}</span>
+
+<div>
+    ----------------- <br>
+    {{course.title | uppercase}} <br>
+    {{course.students | number}} <br>
+    {{course.rating | number:'1.2-2'}} <br>
+    {{course.price | currency:'USD' }} <br>
+    {{course.releaseDate | date:'short'}} <br>
+    ----------------- <br>  
+</div>
+
+<div>
+    <!-- Custom pipe summary -->
+    {{longText | summary: 200 }}
+</div>

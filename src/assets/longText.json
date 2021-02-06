@@ -1,0 +1,3 @@
+{
+    "longText": "Currently, the product list displays the name and description of each product. The ProductListComponent also defines a products property that contains imported data for each product from the products array in products.ts. The next step is to create a new alert feature that uses product data from the ProductListComponent. The alert checks the product's price, and, if the price is greater than $700, displays a Notify Me button that lets users sign up for notifications when the product goes on sale. This section walks you through creating a child component, ProductAlertsComponent that can receive data from its parent component, ProductListComponent."
+}

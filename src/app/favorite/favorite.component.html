@@ -1,0 +1,9 @@
+<h2>Favorite Component</h2>
+<i class="bi" [class.bi-star-fill]="isFavorite" [class.bi-star]="!isFavorite" (click)="clickStar()"></i>
+
+
+<br><br>
+
+<label for="fname">Type text to capitalize:</label>
+<input type="text" [(ngModel)]="word" (keyup)="updateText()">
+<div>{{capitalized}}</div>
