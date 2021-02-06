@@ -1,1 +1,53 @@
 <h2>Course Component!</h2>
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+
+    <div class="form-group">
+        <label for="courseName">Course Name</label>
+        <input 
+            type="text" 
+            required
+            minlength="5"
+            ngModel name="courseName"
+            class="form-control"
+            #c="ngModel" (change)="log(c)">
+    
+        <div class="alert alert-danger" *ngIf="!c.control.valid && c.touched">
+    
+            <div *ngIf="c.errors.required">Course name is required</div>
+            <div *ngIf="c.errors.minlength">Course name should be at least {{c.errors.minlength.requiredLength}} characters</div>
+    
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select required ngModel #cat="ngModel" (change)=log(cat) name="category" class=form-control>
+            <option value=""></option>
+            <option 
+                *ngFor="let catagory of catagories" 
+                [ngValue]="catagory.id"
+                >{{catagory.name}}
+            </option>
+        </select>
+
+        <div class="alert alert-danger" *ngIf="!cat.control.valid && cat.touched">
+            <div *ngIf="cat.errors.required">Category is required</div>
+        </div>
+
+        
+    </div>
+
+    <div>
+        <label for="hasGuarantee">
+            <input type="checkbox" ngModel name="hasGuarantee">
+            30-day money-back guarantee
+        </label>
+    </div>
+
+
+    <button class="btn btn-secondary" [disabled]="!f.valid">Create</button>
+    <p>{{f.value | json}}</p>
+
+</form>
+

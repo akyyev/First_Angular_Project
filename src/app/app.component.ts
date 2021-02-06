@@ -30,5 +30,5 @@ export class AppComponent {
   phones = ['iphone', 'samsung', 'lg', 'huawei']
 
   viewMode = 'somew';
-
+  
 }
