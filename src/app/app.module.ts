@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import { CourseComponent } from './course/course.component';
 import { AuthorComponent } from './author/author.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { PanelComponent } from './panel/panel.component';
 import { LikeComponent } from './like/like.component';
@@ -38,7 +38,8 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
     BrowserModule, // Contians CommonModule for Pipe stuff
     AppRoutingModule,
     // Forms module is necessary for two way binding
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     // services, dependencies...
