@@ -33,7 +33,6 @@ export class NewCourseFormComponent {
   }
 
 
-
   // This is an alternative to above decleration of form formGroup
   formAlternative
   constructor(fb: FormBuilder) {

@@ -1,3 +1,9 @@
+import { AppErrorHandler } from './comman/app-error-handler';
+import { ErrorHandler } from '@angular/core';
+
+
+import { HttpClientModule } from '@angular/common/http';
+
 import { SummaryPipe } from './summary.pipe';
 import { AuthorService } from './author.service';
 import { CoursesService } from './courses.service';
@@ -19,6 +25,9 @@ import { ZippyComponent } from './zippy/zippy.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
+import { PostComponent } from './post/post.component';
+import { PostService } from './services/post.service';
+
 
 @NgModule({
   declarations: [
@@ -34,19 +43,24 @@ import { NewCourseFormComponent } from './new-course-form/new-course-form.compon
     ZippyComponent,
     ContactFormComponent,
     SignupFormComponent,
-    NewCourseFormComponent
+    NewCourseFormComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule, // Contians CommonModule for Pipe stuff
     AppRoutingModule,
     // Forms module is necessary for two way binding
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     // services, dependencies...
     CoursesService,
-    AuthorService
+    AuthorService,
+    PostService,
+    // Global error handler - custom implementation
+    { provide: ErrorHandler, useClass: AppErrorHandler}
   ],
   bootstrap: [AppComponent]
 })
