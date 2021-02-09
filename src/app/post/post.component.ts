@@ -20,23 +20,31 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
       this.service.getAll()
-      .subscribe( res => this.posts = res as [any]);
+      .subscribe( res => {
+        this.posts = res as [any]
+      });
   }
 
   createPost(input: HTMLInputElement) {
     let postData = { title: input.value };
     input.value = '';
+    // Here we are adding the course immidiately when user hits an enter
+    this.posts.splice(0, 0, postData);
 
     this.service.create(postData)
     .subscribe( 
       res => {
         postData['id'] = res['id'];
-        this.posts.splice(0, 0, postData);
       }, 
       (error: AppError) => {
+        // If call was unseccessful then we have to revert changes back
+        // This is optimistic approach, that provides better user experience
+        // This is to revert the creation of course
+        this.posts.splice(0, 1);
+
         if(error instanceof BadInput) {
           // this.form.setErrors(error.originalError)
-          alert('Bad input has been passed');
+          //alert('Bad input has been passed');
         } else throw error; // we need to throw error to hit global error-handler
       });
     
@@ -44,7 +52,7 @@ export class PostComponent implements OnInit {
 
   updatePost(post) {
     // this.http.put( this.baseUrl, post)
-    this.service.update(post.id)
+    this.service.update(post)
     .subscribe( 
       res => {
         console.log(res);
@@ -53,16 +61,21 @@ export class PostComponent implements OnInit {
   }
 
   deletePost(post) {
+    // It will directly delete post without waiting the response of api call, if it fails the we will revert it back
+    let index = this.posts.indexOf(post);
+    this.posts.splice(index, 1);
+
     // this.http.put( this.baseUrl, post)
     const fakeId = '345/q35';
     this.service.delete(fakeId)
     // this.service.deletePost(post.id)
     .subscribe( 
-      res => {
-          let index = this.posts.indexOf(post);
-          this.posts.splice(index, 1);
+      () => {
+          null
       }, 
       (error: AppError) => {
+        this.posts.splice(index, 0, post);
+
         if( error instanceof NotFoundError) {
           alert('This post has already been deleted.');
         } else throw error;

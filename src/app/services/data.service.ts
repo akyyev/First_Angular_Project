@@ -20,8 +20,13 @@ export class DataService {
       .pipe( map( response => response ), catchError(this.handleError) );
   }
 
+  // TODO 
   create(resource) {
-    return this.http.post(this.url, JSON.stringify(resource))
+    if(resource.title === 'salam') {
+      // if you type - salam - it should return not found error (404)
+      return this.http.post(this.url+123, resource).pipe( catchError( this.handleError) );
+    }
+    return this.http.post(this.url, resource)
       .pipe( catchError( this.handleError) );
   }
 
@@ -32,6 +37,8 @@ export class DataService {
 
   delete(id) {
     return this.http.delete( this.url + "/" + id)
+      // .toPromise()
+      // .retry(3)
       .pipe( catchError(this.handleError) );
   }
 
