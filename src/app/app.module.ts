@@ -1,3 +1,6 @@
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FollowersService } from './services/followers.service';
 import { AppErrorHandler } from './comman/app-error-handler';
 import { ErrorHandler } from '@angular/core';
 
@@ -27,6 +30,10 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { PostComponent } from './post/post.component';
 import { PostService } from './services/post.service';
+import { MyFollowersComponent } from './my-followers/my-followers.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { GithubProfileComponent } from './github-profile/github-profile.component';
 
 
 @NgModule({
@@ -44,7 +51,12 @@ import { PostService } from './services/post.service';
     ContactFormComponent,
     SignupFormComponent,
     NewCourseFormComponent,
-    PostComponent
+    PostComponent,
+    MyFollowersComponent,
+    NavbarComponent,
+    HomeComponent,
+    NotFoundComponent,
+    GithubProfileComponent
   ],
   imports: [
     BrowserModule, // Contians CommonModule for Pipe stuff
@@ -52,13 +64,26 @@ import { PostService } from './services/post.service';
     // Forms module is necessary for two way binding
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path: '', component: HomeComponent},
+
+      {path: 'followers', component: MyFollowersComponent},
+      {path: 'followers/:id/:username', component: GithubProfileComponent},
+      {path: 'posts', component: PostComponent},
+      {path: 'home', component: ContactFormComponent},
+      {path: 'favorite', component: FavoriteComponent},
+      {path: 'zippy', component: ZippyComponent},
+      {path: 'course', component: CourseComponent},
+      {path: '**', component: NotFoundComponent}
+    ])
   ],
   providers: [
     // services, dependencies...
     CoursesService,
     AuthorService,
     PostService,
+    FollowersService,
     // Global error handler - custom implementation
     { provide: ErrorHandler, useClass: AppErrorHandler}
   ],

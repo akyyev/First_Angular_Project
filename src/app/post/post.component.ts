@@ -67,8 +67,8 @@ export class PostComponent implements OnInit {
 
     // this.http.put( this.baseUrl, post)
     const fakeId = '345/q35';
-    this.service.delete(fakeId)
-    // this.service.deletePost(post.id)
+    // this.service.delete(fakeId)
+    this.service.delete(post.id)
     .subscribe( 
       () => {
           null

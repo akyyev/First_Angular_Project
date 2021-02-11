@@ -1,0 +1,10 @@
+
+
+<div *ngFor="let follower of followers| slice:0:4; let i=index" class="media">
+    <img src="{{follower.avatar_url}}" class="avatar align-self-center mr-3" alt="avatar url">
+    <div class="media-body">
+        <h6 class="mt-0">{{follower.login}}</h6>
+        <a [routerLink]="['/followers', follower.id, follower.login]">GitHub Profile</a>
+    </div>
+    <br><br><br> <br>
+</div>
