@@ -5,7 +5,10 @@
     (keyup.enter)="createPost(title)" #title>
 
 <ul class="list-group">
-    <li *ngFor="let post of posts" class="list-group-item">
+    <br>
+    <div>Just showing 6 posts here</div>
+    <br>
+    <li *ngFor="let post of posts| slice:0:5; let i=index" class="list-group-item">
         <button 
             (click)="updatePost(post)"
             class="btn btn-secondary btn-sm"> Update
